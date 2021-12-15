@@ -22,8 +22,15 @@ dotenv.config({path: './env/.env'})
 
 //para poder trabajar con lass cookies
 
-//app.use(cookieParser)
+app.use(cookieParser())
 
+
+//Para eliminar el cache y que no se pueda volver con el boton de back luego de cerrar sesion
+app.use(function(req,res,next){
+    if(!req.user)
+        res.header('Cache-Control','private,no-cache,no-store,must-revalidate');
+        next()
+});
 
 
 //llamar al router
@@ -34,6 +41,12 @@ app.use('/',require('./routes/router'))
 });
 
 */
+
+
+
+
+
+
 app.listen(3000,()=>{
     console.log('server up');
 });
